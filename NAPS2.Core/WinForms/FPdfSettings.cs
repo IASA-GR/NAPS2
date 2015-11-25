@@ -58,6 +58,7 @@ namespace NAPS2.WinForms
         private void UpdateValues(PdfSettings pdfSettings)
         {
             txtDefaultFileName.Text = pdfSettings.DefaultFileName;
+            cbIASAFileValidation.Checked = pdfSettings.IASAFileValidation;
             txtTitle.Text = pdfSettings.Metadata.Title;
             txtAuthor.Text = pdfSettings.Metadata.Author;
             txtSubject.Text = pdfSettings.Metadata.Subject;
@@ -91,6 +92,7 @@ namespace NAPS2.WinForms
             var pdfSettings = new PdfSettings
             {
                 DefaultFileName = txtDefaultFileName.Text,
+                IASAFileValidation = cbIASAFileValidation.Checked,
                 Metadata =
                 {
                     Title = txtTitle.Text,

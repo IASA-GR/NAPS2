@@ -43,6 +43,7 @@ using NAPS2.Scan;
 using NAPS2.Scan.Images;
 using NAPS2.Update;
 using NAPS2.Util;
+using System.Text.RegularExpressions;
 
 namespace NAPS2.WinForms
 {
@@ -548,6 +549,19 @@ namespace NAPS2.WinForms
             SavePDF(SelectedImages.ToList());
         }
 
+        private Boolean ValidateFilename(string FileName, Boolean validate)
+        {
+            if (validate)
+            {
+                string pat = @"(p(\d+)-)+c(\d+)-d(\d{6}$)";
+                Regex r = new Regex(pat, RegexOptions.IgnoreCase);
+                Match m = r.Match(FileName);
+                //errorOutput.DisplayError(FileName+" result:"+ m.Success);
+                return m.Success;
+            }
+            return true;
+        }
+
         private void SavePDF(List<IScannedImage> images)
         {
             if (images.Any())
@@ -562,12 +576,18 @@ namespace NAPS2.WinForms
 
                 if (sd.ShowDialog() == DialogResult.OK)
                 {
-                    ExportPDF(sd.FileName, images);
-                    changeTracker.HasUnsavedChanges = false;
+                    if (ValidateFilename(Path.GetFileNameWithoutExtension(sd.FileName), pdfSettingsContainer.PdfSettings.IASAFileValidation))
+                    {
+                        ExportPDF(sd.FileName, images);
+                        changeTracker.HasUnsavedChanges = false;
+                    }
+                    else
+                    {
+                        errorOutput.DisplayError("The provided file name is not correct: " + Path.GetFileNameWithoutExtension(sd.FileName) + ".pdf \n\nThe correct pattern is: pXXXXXX-cYYYYYY-dZZZZZZ. \n\nWhere:\npXXXXXX is the protocol number prefixed by the letter 'p' (multiple pXXXXXX are allowed separated by '-')\ncYYYYYY is the project code prefixed by the letter 'c'\ndZZZZZZ is the date in 'YYMMDD' format prefixed by the letter 'd'.");
+                    }
                 }
             }
         }
-
         private void tsdSaveImages_ButtonClick(object sender, EventArgs e)
         {
             SaveImages(imageList.Images);

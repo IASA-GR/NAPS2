@@ -36,6 +36,8 @@ namespace NAPS2.ImportExport.Pdf
         }
 
         public string DefaultFileName { get; set; }
+        
+        public Boolean IASAFileValidation { get; set; }
 
         public PdfMetadata Metadata
         {

@@ -67,6 +67,7 @@ namespace NAPS2.WinForms
             this.linkPlaceholders = new System.Windows.Forms.LinkLabel();
             this.txtDefaultFileName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbIASAFileValidation = new System.Windows.Forms.CheckBox();
             this.groupMetadata.SuspendLayout();
             this.groupProtection.SuspendLayout();
             this.SuspendLayout();
@@ -281,10 +282,17 @@ namespace NAPS2.WinForms
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // cbIASAFileValidation
+            // 
+            resources.ApplyResources(this.cbIASAFileValidation, "cbIASAFileValidation");
+            this.cbIASAFileValidation.Name = "cbIASAFileValidation";
+            this.cbIASAFileValidation.UseVisualStyleBackColor = true;
+            // 
             // FPdfSettings
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cbIASAFileValidation);
             this.Controls.Add(this.linkPlaceholders);
             this.Controls.Add(this.txtDefaultFileName);
             this.Controls.Add(this.label1);
@@ -341,5 +349,6 @@ namespace NAPS2.WinForms
         private System.Windows.Forms.LinkLabel linkPlaceholders;
         private System.Windows.Forms.TextBox txtDefaultFileName;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbIASAFileValidation;
     }
 }
